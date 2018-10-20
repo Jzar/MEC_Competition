@@ -1,9 +1,12 @@
 import React from 'react';
-import { Text, Button, StyleSheet, View } from 'react-native';
+import { Text, Button, StyleSheet, View , ScrollView} from 'react-native';
 import { Constants, Speech } from 'expo';
 import Touchable from 'react-native-platform-touchable'; // 1.1.1
 import {AppRegistry, TextInput} from 'react-native';
 
+
+
+//Hard-Coded Presets
 const PRESETS = [
   {text: 'Yes' },
   {text: 'No' },
@@ -12,11 +15,14 @@ const PRESETS = [
   {text: 'Oh yea' },
 ];
 
+
 export default class PresetPhrasesScreen extends React.Component {
+  //Titles the section of the app
   static navigationOptions = {
     title: 'Preset',
   };
 
+  //sets up the state of the class to include all useful items needed for TTS
   state = {
     selectedPreset: PRESETS[0],
     text: "Please Enter Your Text",
@@ -25,7 +31,7 @@ export default class PresetPhrasesScreen extends React.Component {
     rate: 0.75,
     language: 'en'
   };
-
+  //Render function, displays the presets
   render() {
     return (
       <View style={styles.container}>
@@ -33,13 +39,13 @@ export default class PresetPhrasesScreen extends React.Component {
           <Text style={styles.headerText}>Select a phrase</Text>
         </View>
 
-        <View style={styles.examplesContainer}>
+        <ScrollView style={styles.examplesContainer}>
           {PRESETS.map(this._renderPreset)}
-        </View>
+        </ScrollView>
       </View>
     );
   }
-
+  //Function for speaking, takes a preset, checks if the app is currently speaking, then speaks with the defined settings
   _speak = (preset) => {
     const start = () => {
       this.setState({ inProgress: true });
@@ -58,12 +64,12 @@ export default class PresetPhrasesScreen extends React.Component {
       onError: complete,
     });
   };
-
+  //unused stop function
   _stop = () => {
     Speech.stop();
   };
 
-
+  //Function for rendering presets. Creates a touchable object that calls selectPreset when pressed
   _renderPreset= (preset, i) => {
     let { selectedPreset} = this.state;
     let isSelected = selectedPreset === preset;
@@ -83,7 +89,7 @@ export default class PresetPhrasesScreen extends React.Component {
       </Touchable>
     );
   };
-
+  //What happ
   _selectPreset = preset => {
     this.setState({ selectedPreset: preset });
     this._speak(preset);
@@ -114,9 +120,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   presetText: {
-    fontSize: 15,
-    color: '#ccc',
+    fontSize: 25,
+    color: 'black',
     marginVertical: 10,
+    textAlign: 'center',
   },
   presetContainer: {
     paddingTop: 15,
@@ -124,10 +131,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   selectedPresetText: {
-    color: 'black',
+    fontSize: 30,
+    color: 'red',
+    textAlign: 'center',
   },
   controlText: {
-    fontSize: 16,
+    fontSize: 25,
     fontWeight: '500',
     marginTop: 5,
     textAlign: 'center',
