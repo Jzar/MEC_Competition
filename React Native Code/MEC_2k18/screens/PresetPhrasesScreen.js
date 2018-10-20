@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Button, StyleSheet, View , ScrollView} from 'react-native';
+import { Text, Button, StyleSheet, View , ScrollView, AsyncStorage} from 'react-native';
 import { Constants, Speech } from 'expo';
 import Touchable from 'react-native-platform-touchable'; // 1.1.1
 import {AppRegistry, TextInput} from 'react-native';
@@ -7,13 +7,14 @@ import {AppRegistry, TextInput} from 'react-native';
 
 
 //Hard-Coded Presets
-const PRESETS = [
+/*
+const this.state.presets = [
   {text: 'Yes' },
   {text: 'No' },
   {text: 'Hello' },
   {text: 'How are you today?' },
   {text: 'Oh yea' },
-];
+];*/
 
 
 export default class PresetPhrasesScreen extends React.Component {
@@ -24,14 +25,27 @@ export default class PresetPhrasesScreen extends React.Component {
 
   //sets up the state of the class to include all useful items needed for TTS
   state = {
-    selectedPreset: PRESETS[0],
+    selectedPreset: 'hello',
     text: "Please Enter Your Text",
     inProgress: false,
     pitch: 1,
     rate: 0.75,
-    language: 'en'
+    language: 'en',
+    presets: ['hello'],
+    temp: 'Sample'
   };
   //Render function, displays the presets
+
+  async componentDidMount(){
+    this.preload_presets();
+    }
+  async preload_presets(){
+    if (AsyncStorage.getItem('presets') != null){
+      this.setState({presets: JSON.parse(AsyncStorage.getItem('presets'))});
+    }
+    
+  }  
+
   render() {
     return (
       <View style={styles.container}>
@@ -39,8 +53,24 @@ export default class PresetPhrasesScreen extends React.Component {
           <Text style={styles.headerText}>Select a phrase</Text>
         </View>
 
+        <Text>Add a new phrase</Text>
+        <TextInput 
+            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            onChangeText={(temp) => this.setState({temp})}
+            value={this.state.text}
+         />
+         <Button
+         onPress={async () => {
+           var presets1 = this.state.presets;
+           presets1.push(this.state.temp);
+           this.setState({presets: presets1})
+           AsyncStorage.setItem('presets', JSON.stringify(presets1));
+        }} 
+        title = "Add Phrase"
+        />
+
         <ScrollView style={styles.examplesContainer}>
-          {PRESETS.map(this._renderPreset)}
+          {this.state.presets.map(this._renderPreset)}
         </ScrollView>
       </View>
     );
@@ -54,7 +84,7 @@ export default class PresetPhrasesScreen extends React.Component {
       this.state.inProgress && this.setState({ inProgress: false });
     };
 
-    Speech.speak(preset.text, {
+    Speech.speak(preset, {
       language: this.state.language,
       pitch: this.state.pitch,
       rate: this.state.rate,
@@ -84,7 +114,7 @@ export default class PresetPhrasesScreen extends React.Component {
             styles.presetText,
             isSelected && styles.selectedPresetText,
           ]}>
-          {preset.text}
+          {preset}
         </Text>
       </Touchable>
     );
