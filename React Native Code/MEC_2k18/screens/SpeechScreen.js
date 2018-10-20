@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Button, StyleSheet, View } from 'react-native';
+import { Text, Button, StyleSheet, View, ScrollView } from 'react-native';
 import { Constants, Speech } from 'expo';
 import Touchable from 'react-native-platform-touchable'; // 1.1.1
 import {AppRegistry, TextInput} from 'react-native';
@@ -44,7 +44,7 @@ export default class SpeechScreen extends React.Component {
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <TextInput 
-            style={{height: 80, borderColor: 'gray', borderWidth: 0,fontSize: 35, textAlign: 'center',}}
+            style={{height: 80, borderColor: 'gray', borderWidth: 1,fontSize: 35, textAlign: 'center',}}
             onChangeText={(text) => this.setState({text})}
             value={this.state.text}
             />
@@ -52,6 +52,8 @@ export default class SpeechScreen extends React.Component {
 
 
         <View style={styles.separator} />
+
+        <ScrollView>
 
         <View style={styles.controlRow}>
           <Button
@@ -103,6 +105,7 @@ export default class SpeechScreen extends React.Component {
             disabled={this.state.inProgress}
           />
         </View>
+        </ScrollView>
       </View>
     );
   }
