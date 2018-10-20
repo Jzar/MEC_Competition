@@ -43,7 +43,7 @@ export default class SpeechScreen extends React.Component {
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <TextInput 
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            style={{height: 80, borderColor: 'gray', borderWidth: 0,fontSize: 35, textAlign: 'center',}}
             onChangeText={(text) => this.setState({text})}
             value={this.state.text}
             />
@@ -228,6 +228,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
   },
 });
