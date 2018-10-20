@@ -21,6 +21,7 @@ export default class PresetPhrasesScreen extends React.Component {
   //Titles the section of the app
   static navigationOptions = {
     title: 'Preset',
+    headerStyle: {marginTop: 24}
   };
 
   //sets up the state of the class to include all useful items needed for TTS
@@ -50,12 +51,11 @@ export default class PresetPhrasesScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Select a phrase</Text>
+          <Text style={styles.headerText}>Select/Add a phrase</Text>
         </View>
 
-        <Text>Add a new phrase</Text>
         <TextInput 
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            style={{height: 40, borderColor: 'gray', borderWidth: 1, fontSize: 30, textAlign: 'center'}}
             onChangeText={(temp) => this.setState({temp})}
             value={this.state.text}
          />
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   },
   selectedPresetText: {
     fontSize: 30,
-    color: 'red',
+    color: 'blue',
     textAlign: 'center',
   },
   controlText: {

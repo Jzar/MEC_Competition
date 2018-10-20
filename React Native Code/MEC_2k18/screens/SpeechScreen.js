@@ -28,6 +28,7 @@ class AmountControlButton extends React.Component {
 export default class SpeechScreen extends React.Component {
   static navigationOptions = {
     title: 'Speech',
+    headerStyle: {marginTop: 24}
   };
 
   state = {
