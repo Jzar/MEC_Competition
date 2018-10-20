@@ -4,8 +4,9 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import PresetPhrasesScreen from '../screens/PresetPhrasesScreen';
+import SpeechScreen from '../screens/SpeechScreen';
+
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -25,12 +26,12 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const PresetPhrasesStack = createStackNavigator({
+  PresetPhrase: PresetPhrasesScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+PresetPhrasesStack.navigationOptions = {
+  tabBarLabel: 'Phrases',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -39,12 +40,12 @@ LinksStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const SpeechStack = createStackNavigator({
+  Speeches: SpeechScreen,
 });
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+SpeechStack.navigationOptions = {
+  tabBarLabel: 'Speech',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -53,8 +54,10 @@ SettingsStack.navigationOptions = {
   ),
 };
 
+
+
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack,
+  PresetPhrasesStack,
+  SpeechStack,
 });

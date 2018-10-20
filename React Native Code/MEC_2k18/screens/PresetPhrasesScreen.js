@@ -12,7 +12,7 @@ const PRESETS = [
   {text: 'Oh yea' },
 ];
 
-export default class LinksScreen extends React.Component {
+export default class PresetPhrasesScreen extends React.Component {
   static navigationOptions = {
     title: 'Preset',
   };
