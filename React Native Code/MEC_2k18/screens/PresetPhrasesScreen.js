@@ -33,7 +33,6 @@ export default class PresetPhrasesScreen extends React.Component {
     rate: 0.75,
     language: 'en',
     presets: ['hello'],
-    temp: 'Sample'
   };
   //Render function, displays the presets
 
@@ -55,14 +54,14 @@ export default class PresetPhrasesScreen extends React.Component {
         </View>
 
         <TextInput 
-            style={{height: 40, borderColor: 'gray', borderWidth: 1, fontSize: 30, textAlign: 'center'}}
-            onChangeText={(temp) => this.setState({temp})}
+            style={{height: 40, borderColor: 'gray', borderWidth: 0, fontSize: 30, textAlign: 'center'}}
+            onChangeText={(text) => this.setState({text})}
             value={this.state.text}
          />
          <Button
          onPress={async () => {
            var presets1 = this.state.presets;
-           presets1.push(this.state.temp);
+           presets1.push(this.state.text);
            this.setState({presets: presets1})
            AsyncStorage.setItem('presets', JSON.stringify(presets1));
         }} 
@@ -141,13 +140,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 5,
+    textAlign: 'center'
   },
   headerContainer: {
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
     marginHorizontal: 20,
     marginBottom: 0,
-    marginTop: 20,
+    marginTop: 10,
   },
   presetText: {
     fontSize: 25,
