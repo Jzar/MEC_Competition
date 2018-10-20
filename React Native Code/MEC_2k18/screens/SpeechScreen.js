@@ -44,7 +44,7 @@ export default class SpeechScreen extends React.Component {
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <TextInput 
-            style={{height: 80, borderColor: 'gray', borderWidth: 1,fontSize: 35, textAlign: 'center',}}
+            style={{height: 80, borderColor: 'gray', borderWidth: 0,fontSize: 35, textAlign: 'center',}}
             onChangeText={(text) => this.setState({text})}
             value={this.state.text}
             />
